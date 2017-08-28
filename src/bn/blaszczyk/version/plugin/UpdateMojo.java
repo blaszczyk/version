@@ -19,7 +19,7 @@ import bn.blaszczyk.version.tools.PomTools;
 @Mojo(name="update")
 public class UpdateMojo extends AbstractMojo {
 	
-	public static final String VERSION = "0.0.2";
+	public static final String VERSION = "0.0.3";
 	
 	@Parameter
 	private File versionJavaFile;
@@ -30,12 +30,17 @@ public class UpdateMojo extends AbstractMojo {
 	@Parameter
 	private String versionPrefix;
 	
-	@Parameter
+	@Parameter(defaultValue="0")
 	private int skipCommits;
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException
 	{
+		if(versionPrefix == null)
+		{
+			getLog().info("update mojo not configured (maybe versionPrefix missing?)");
+			return;
+		}
 		try
 		{
 			final Map<?,?> context = getPluginContext();
@@ -45,8 +50,9 @@ public class UpdateMojo extends AbstractMojo {
 			final String artifactId = mvnProject.getArtifactId();
 			final String groupId = mvnProject.getGroupId();
 			final Project currentProject = new Project(groupId, artifactId, version);
-			updateVersionInJava(version);
-			updatePoms(baseDir, currentProject);			
+			updatePoms(baseDir, currentProject);
+			if(versionJavaFile != null && versionVariable != null)
+				updateVersionInJava(version);
 		}
 		catch (VersionException e)
 		{
