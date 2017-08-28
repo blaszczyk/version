@@ -19,7 +19,7 @@ import bn.blaszczyk.version.tools.PomTools;
 @Mojo(name="update")
 public class UpdateMojo extends AbstractMojo {
 	
-	public static final String VERSION = "version";
+	public static final String VERSION = "0.0.1";
 	
 	@Parameter
 	private File versionJavaFile;
@@ -45,7 +45,7 @@ public class UpdateMojo extends AbstractMojo {
 			final String artifactId = mvnProject.getArtifactId();
 			final String groupId = mvnProject.getGroupId();
 			final Project currentProject = new Project(groupId, artifactId, version);
-			JavaTools.updateVersionInJava(versionJavaFile, versionVariable, version);
+			updateVersionInJava(version);
 			updatePoms(baseDir, currentProject);			
 		}
 		catch (VersionException e)
@@ -56,6 +56,13 @@ public class UpdateMojo extends AbstractMojo {
 		{
 			throw new MojoExecutionException("error executing update mojo",e);
 		}
+	}
+	
+	private void updateVersionInJava(final String version) throws VersionException
+	{
+		final boolean updated = JavaTools.updateVersionInJava(versionJavaFile, versionVariable, version);
+		if(updated)
+			getLog().info("updated " + versionVariable + " in " + versionJavaFile);
 	}
 
 	private String generateVersion(final File baseDir) throws VersionException

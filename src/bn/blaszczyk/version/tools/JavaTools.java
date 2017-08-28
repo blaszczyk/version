@@ -11,11 +11,11 @@ import bn.blaszczyk.version.VersionException;
 
 public class JavaTools
 {
-
-	public static void updateVersionInJava(final File versionJavaFile, final String versionVariable, final String version) throws VersionException
+	public static boolean updateVersionInJava(final File versionJavaFile, final String versionVariable, final String version) throws VersionException
 	{
 		try
 		{
+			boolean updated = false;
 			final List<String> lines = Files.readAllLines(versionJavaFile.toPath());
 			for(int i = 0; i < lines.size(); i++)
 			{
@@ -24,16 +24,21 @@ public class JavaTools
 				if(line.contains(varEquals))
 				{
 					final int endIndex = line.lastIndexOf(varEquals) + varEquals.length();
-					final String newVersion = line.substring(0, endIndex) + "\"" + version + "\";";
-					lines.set(i, newVersion);
+					final String newVersionLine = line.substring(0, endIndex) + "\"" + version + "\";";
+					if(line.equals(newVersionLine))
+						return false;
+					lines.set(i, newVersionLine);
+					updated = true;
 					break;
 				}
 			}
-			try(final Writer writer = new FileWriter(versionJavaFile))
-			{
-				for(final String line : lines)
-					writer.write(line + "\r\n");				
-			}
+			if(updated)
+				try(final Writer writer = new FileWriter(versionJavaFile))
+				{
+					for(final String line : lines)
+						writer.write(line + "\r\n");				
+				}
+			return updated;
 		}
 		catch(IOException e)
 		{

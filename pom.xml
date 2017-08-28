@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>bn.blaszczyk</groupId>
   <artifactId>version</artifactId>
-  <version>0.1</version>
+  <version>0.0.1</version>
   <packaging>maven-plugin</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,20 +24,18 @@
       <artifactId>maven-plugin-annotations</artifactId>
       <version>3.5</version>
       <scope>provided</scope>
-	</dependency>
-	
-	    <!-- update to 4.x leads to an error with maven-plugin -->
-	    <dependency>
-	      <groupId>org.eclipse.jgit</groupId>
-	      <artifactId>org.eclipse.jgit</artifactId>
-    <version>3.7.1.201504261725-r</version>
-<!--  	     4.8.0.201706111038-r <version>3.7.1.201504261725-r</version> -->
-	    </dependency>
-	    <dependency>
-	      <groupId>org.jdom</groupId>
-	      <artifactId>jdom2</artifactId>
-	      <version>2.0.6</version>
-	    </dependency>
+    </dependency>
+    <!-- update to 4.x leads to an error with maven-plugin -->
+    <dependency>
+      <groupId>org.eclipse.jgit</groupId>
+      <artifactId>org.eclipse.jgit</artifactId>
+      <version>3.7.1.201504261725-r</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom2</artifactId>
+      <version>2.0.6</version>
+    </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -50,20 +48,20 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-plugin-plugin</artifactId>
-            <version>3.5</version>
-        </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.5</version>
+      </plugin>
       <plugin>
         <groupId>bn.blaszczyk</groupId>
         <artifactId>version</artifactId>
-        <version>0.1</version>
+        <version>0.0.1</version>
         <configuration>
-        	<versionJavaFile>src/bn/blaszczyk/version/plugin/UpdateMojo.java</versionJavaFile>
-			<versionVariable>public static final String VERSION</versionVariable>
-			<versionPrefix>0.0.</versionPrefix>
-			<skipCommits>0</skipCommits>
+          <versionJavaFile>src/bn/blaszczyk/version/plugin/UpdateMojo.java</versionJavaFile>
+          <versionVariable>public static final String VERSION</versionVariable>
+          <versionPrefix>0.0</versionPrefix>
+          <skipCommits>0</skipCommits>
         </configuration>
       </plugin>
     </plugins>

@@ -61,10 +61,7 @@ public class PomTools
 	{
 		boolean updated = false;
 		if(matchesProject(element, project))
-		{
-			updateVersion(element, project.getVersion());
-			updated = true;
-		}
+			updated = updateVersion(element, project.getVersion());
 		for(final Element child : element.getChildren())
 			updated |= updateRecursive(child, project);
 		return updated;
@@ -81,10 +78,13 @@ public class PomTools
 				&& artifactId.getValue().equals(project.getArtifactId());
 	}
 	
-	private static void updateVersion(final Element element, final String version)
+	private static boolean updateVersion(final Element element, final String version)
 	{
 		final Element versionElement = element.getChild(VERSION, POM_NS);
+		if(versionElement.getValue().equals(version))
+			return false;
 		versionElement.setText(version);
+		return true;
 	}
 	
 	private static void writePom(final Document document, final File baseFolder) throws VersionException
