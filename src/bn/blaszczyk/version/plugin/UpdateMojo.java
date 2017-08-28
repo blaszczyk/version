@@ -19,7 +19,7 @@ import bn.blaszczyk.version.tools.PomTools;
 @Mojo(name="update")
 public class UpdateMojo extends AbstractMojo {
 	
-	public static final String VERSION = "0.0.1";
+	public static final String VERSION = "0.0.2";
 	
 	@Parameter
 	private File versionJavaFile;
@@ -68,11 +68,11 @@ public class UpdateMojo extends AbstractMojo {
 	private String generateVersion(final File baseDir) throws VersionException
 	{
 		final int commitCount = GitTools.countCommits(baseDir);
-		getLog().info("Commit Count: " + commitCount);
+		getLog().info("commit count: " + commitCount);
 		if(skipCommits > commitCount)
 			throw new VersionException(String.format("Unable to skip %d commits. Total count is %d.", skipCommits, commitCount));
 		final String version = String.format("%s.%d", versionPrefix, commitCount - skipCommits);
-		getLog().info("Generated Version: " + version);
+		getLog().info("generated version: " + version);
 		return version;
 	}
 	
@@ -91,7 +91,7 @@ public class UpdateMojo extends AbstractMojo {
 		{
 			final boolean updated = PomTools.updatePomRecursive(directory, project);
 			if(updated)
-				getLog().info("updating pom in " + directory.getAbsolutePath());
+				getLog().info("updated pom in " + directory.getAbsolutePath());
 			for(final File file : directory.listFiles())
 				if(file.isDirectory() && PomTools.isMavenBaseDirectory(file))
 					updatePomsRecursive(file, project);
