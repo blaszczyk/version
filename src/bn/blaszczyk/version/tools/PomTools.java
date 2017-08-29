@@ -26,7 +26,7 @@ public class PomTools
 	private PomTools() {
 	}
 	
-	public static boolean isMavenBaseDirectory(final File directory)
+	public static boolean containsPom(final File directory)
 	{
 		final File pomFile = pomContainedIn(directory);
 		return pomFile.exists() && pomFile.isFile();

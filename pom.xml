@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>bn.blaszczyk</groupId>
   <artifactId>version</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.6</version>
   <packaging>maven-plugin</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -56,9 +56,9 @@
       <plugin>
         <groupId>bn.blaszczyk</groupId>
         <artifactId>version</artifactId>
-        <version>0.0.3</version>
+        <version>0.0.6</version>
         <configuration>
-          <versionJavaFile>src/bn/blaszczyk/version/plugin/UpdateMojo.java</versionJavaFile>
+          <versionJavaFile>src/bn/blaszczyk/version/plugin/AbstractUpdateMojo.java</versionJavaFile>
           <versionVariable>public static final String VERSION</versionVariable>
           <versionPrefix>0.0</versionPrefix>
           <skipCommits>0</skipCommits>
