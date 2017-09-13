@@ -22,12 +22,6 @@ public abstract class AbstractUpdateMojo extends AbstractMojo {
 	@Parameter(defaultValue="0")
 	private int skipCommits;
 
-	@Parameter
-	File versionJavaFile;
-	
-	@Parameter
-	String versionVariable;
-
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException
 	{

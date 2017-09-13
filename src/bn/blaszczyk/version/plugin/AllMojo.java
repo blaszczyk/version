@@ -2,6 +2,7 @@ package bn.blaszczyk.version.plugin;
 
 import java.io.File;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 import bn.blaszczyk.version.VersionException;
 import bn.blaszczyk.version.model.Project;
@@ -10,7 +11,13 @@ import bn.blaszczyk.version.tools.PomTools;
 
 
 @Mojo(name="all")
-public class AllMojo extends AbstractUpdateMojo {
+public class AllMojo extends AbstractUpdateMojo
+{
+	@Parameter
+	File versionJavaFile;
+	
+	@Parameter
+	String versionVariable;
 	
 	@Override
 	void executeUpdate(final Project project) throws VersionException
